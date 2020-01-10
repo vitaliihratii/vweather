@@ -1,0 +1,6 @@
+<div class="main__container">
+
+  <vwe-weather-card [routerLink]="city.name" *ngFor="let city of cities | async;" [city]="city?.name"></vwe-weather-card>
+  <vwe-add-city-card></vwe-add-city-card>
+
+</div>

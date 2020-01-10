@@ -1,0 +1,39 @@
+<div class="main__container">
+  <div class="signup-card">
+
+    <main class="signup-content">
+      <span class="signup-header">Signup</span>
+
+      <ng-container *ngIf="signUp$ | async"></ng-container>
+      <form class="signup-form" [formGroup]="authForm" (submit)="submitSignUp.next()">
+        <label class="signup-form__label">
+          <input type="email" autofocus autocomplete="signup-email" placeholder="Email" formControlName="email" class="signup-input">
+          <span class="form__error" *ngIf="showErrors(authForm, 'email', 'required')">Field is required</span>
+          <span class="form__error" *ngIf="showErrors(authForm, 'email', 'pattern')">Email is not valid</span>
+        </label>
+        <label class="signup-form__label">
+          <input type="password" autocomplete="signup-password" placeholder="Password" formControlName="password" class="signup-input">
+          <span class="form__error" *ngIf="showErrors(authForm, 'password', 'required')">Field is required</span>
+          <span class="form__error" *ngIf="showErrors(authForm, 'password', 'minlength')">Enter at least 6 symbols</span>
+        </label>
+        <input type="submit" name="submit" value="Signup" class="signup-btn">
+      </form>
+      <ng-container *ngIf="errMsg$ | async"></ng-container>
+      <div class="error-msg" *ngIf="errMsgSubj | async as err">
+        {{err}}
+      </div>
+      <div class="login-link-wrapper">
+        <span class="login-notice">Already have an account?</span>
+        <a class="login-link" routerLink="/login">login</a>
+      </div>
+
+    </main>
+
+    <!-- linking to signup -->
+    <aside class="signup-aside">
+      <div class="signup-aside-overlay"></div>
+      <h1 class="signup-welcome-text">Join VWeather!</h1>
+      <hr class="signup-aside-hr">
+    </aside>
+  </div>
+</div>

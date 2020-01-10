@@ -1,0 +1,218 @@
+.main__container {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.signup-card {
+  position: relative;
+  display: flex;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 0 1.5rem rgba(0, 0, 0, 0.1);
+  width: 85%;
+  min-height: 80vh;
+  animation: fadein 1s ease-in-out;
+}
+
+.signup-header {
+  animation: slidedown 1.5s ease-in-out;
+  color: #0c1066;
+  font-size: 2.5rem;
+  font-weight: bold;
+  letter-spacing: 0.2rem;
+  margin-bottom: 2rem;
+}
+
+.signup-content {
+  flex: 2 2;
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+  animation: fadein 1.5s ease-in-out;
+  min-height: 100%;
+}
+
+.signup-form {
+  display: flex;
+  flex-flow: column;
+  width: 80%;
+  align-items: center;
+  animation: slidedown 2s ease-in-out;
+}
+
+.signup-aside {
+  animation: fadein 2.25s ease-in-out;
+  flex: 3 3;
+  display: flex;
+  justify-content: flex-end;
+  flex-flow: column;
+  min-height: 100%;
+  border-radius: 0 10px 10px 0;
+  background: url("https://source.unsplash.com/random/1200x900?mountain") no-repeat center center;
+  background-size: cover;
+  position: relative;
+}
+
+.signup-aside-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.15);
+  border-radius: 0 10px 10px 0;
+}
+
+.signup-aside-hr {
+  height: 0.5rem;
+  width: 8rem;
+  border: none;
+  outline: none;
+  background-color: white;
+  position: relative;
+  z-index: 5;
+  margin: 0 0 8rem 3rem;
+  animation: slideright 4s ease-out;
+}
+
+.signup-welcome-text {
+  color: white;
+  letter-spacing: 0.03rem;
+  margin: 0 0 2rem 3rem;
+  font-size: 2.75rem;
+  position: relative;
+  z-index: 5;
+  animation: slideright 2s ease-out;
+}
+
+.signup-form__label {
+  margin: 1.25rem 0;
+  position: relative;
+  width: 80%;
+}
+
+.signup-input {
+  border: none;
+  border-radius: 2rem;
+  box-shadow: 0 0 2rem 0 rgba(0, 0, 0, 0.25);
+  box-sizing: border-box;
+  padding: 1.5rem;
+  outline: none;
+  transition: box-shadow 0.2s;
+  width: 100%;
+}
+
+.signup-input:focus {
+  box-shadow: 0 0 2.75rem 0 rgba(0, 0, 0, 0.35);
+}
+
+.signup-input.ng-touched.ng-invalid {
+  box-shadow: 0 0 1rem 0 rgba(170, 23, 23, 0.514);
+  color: rgb(170, 23, 23);
+}
+
+.signup-btn {
+  background-color: #ff932f;
+  padding: 1rem;
+  border-radius: 2rem;
+  outline: none;
+  border: none;
+  color: white;
+  font-size: 1.1rem;
+  cursor: pointer;
+  margin-top: 1.5rem;
+  width: 50%;
+  box-shadow: 0 0 2rem rgba(0, 0, 0, 0.1);
+}
+
+.signup-btn:hover {
+  background: linear-gradient(to right, #03a9f4, #ff932f);
+}
+
+.signup-input::placeholder {
+  color: #39437a;
+  font-size: 0.9rem;
+}
+
+.btn-disabled {
+  background-color: lightgray;
+}
+
+.btn-disabled:hover {
+  background: lightgray;
+}
+
+.login-link-wrapper {
+  margin-top: 3rem;
+  animation: slideup 1s ease-in-out;
+}
+
+.login-link {
+  text-transform: uppercase;
+  margin-top: 1rem;
+  text-decoration: none;
+  color: #ff932f;
+  margin-left: 1rem;
+}
+
+.error-msg {
+  color: rgb(204, 50, 50);
+  margin: 2rem auto 0;
+  max-width: 90%;
+  text-align: center;
+}
+
+@media screen and (max-width: 1200px) {
+  .signup-card {
+    min-height: 90vh;
+    width: 90%;
+  }
+  .signup-form {
+    width: 100%;
+  }
+  .signup-input {
+    padding: 1rem;
+  }
+  .signup-welcome-text {
+    margin: 0 0 1rem 2rem;
+    font-size: 2rem;
+  }
+  .signup-aside-hr {
+    height: 0.25rem;
+    width: 6rem;
+    margin: 0 0 3rem 2rem;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .signup-aside {
+    flex: 2 2;
+  }
+  .signup-header {
+    font-size: 2rem;
+  }
+  .signup-form__label {
+    margin: 1rem 0;
+  }
+  .signup-btn {
+    font-size: 0.75rem;
+    margin-top: 1.25rem;
+  }
+  .login-link-wrapper {
+    font-size: 0.75rem;
+    margin-top: 2rem;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .signup-card {
+    min-height: 100vh;
+    width: 100%;
+  }
+  .signup-aside {
+    display: none;
+  }
+}

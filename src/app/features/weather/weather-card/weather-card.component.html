@@ -1,0 +1,29 @@
+<section class="weather__card" [ngClass]="{'weather__card-dark': darkMode, 'weather__card-add': addMode}" *ngIf="generalWeather$ | async as weather">
+  <span class="weather__card-section city-name__text">{{cityName}}</span>
+  <div class="weather__card-section weather-icon__container">
+    <img [src]="'http://openweathermap.org/img/wn/' + weather.weather.icon + '@2x.png'" alt="">
+  </div>
+  <div class="weather__card-section temperature-text__container">
+    <!-- <span class="temperature__text">{{ citesWeather }}</span> -->
+    <span class="temperature-metric__text">{{ weather.main.temp | round}}°</span>
+    <span class="weather-condition__text">{{weather.weather.main}}</span>
+  </div>
+  <section class="weather__card-section min-max__container">
+    <div class="min__container">
+      <!-- <svg class="min-arrow__icon" viewBox="188.5 807 21 21">
+        <path fill="#00ff9b" d="M209.5 817.5h-21L199 828z" data-name="Min Arrow" />
+      </svg> -->
+
+      <span class="min-temperature__text">{{ weather.main.temp_min | round }}</span>
+      <span class="min__text">Min</span>
+    </div>
+    <div class="max__container">
+      <!-- <svg class="max-arrow__icon" viewBox="449.5 820 21 21">
+        <path fill="red" d="M449.5 830.5h21L460 820z" data-name="Max Arrow" />
+      </svg> -->
+      <span class="max-temperature__text">{{ weather.main.temp_min | round }}</span>
+      <span class="max__text">Max</span>
+    </div>
+  </section>
+
+</section>

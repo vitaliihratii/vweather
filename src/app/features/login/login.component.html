@@ -1,0 +1,40 @@
+<div class="main__container">
+  <div class="login-card">
+
+    <main class="login-content">
+      <span class="login-header">Signin</span>
+      <!-- login form -->
+
+      <ng-container *ngIf="signIn$ | async"></ng-container>
+      <form class="login-form" [formGroup]="authForm" (submit)="submitSignIn.next()">
+        <label class="login-form__label">
+          <input type="email" autofocus autocomplete="email" placeholder="Email" class="login-input" formControlName="email">
+          <span class="form__error" *ngIf="showErrors(authForm, 'email', 'required')">Field is required</span>
+          <span class="form__error" *ngIf="showErrors(authForm, 'email', 'pattern')">Email is not valid</span>
+        </label>
+        <label class="login-form__label">
+          <input type="password" autocomplete="current-password" placeholder="Password" formControlName="password" class="login-input">
+          <span class="form__error" *ngIf="showErrors(authForm, 'password', 'required')">Field is required</span>
+          <span class="form__error" *ngIf="showErrors(authForm, 'password', 'minlength')">Enter at least 6 symbols</span>
+        </label>
+        <input type="submit" name="submit" value="Login" class="login-btn">
+      </form>
+      <div class="error-msg" *ngIf="errMsgSubj | async as err">
+        {{err}}
+      </div>
+      <div class="signup-link-wrapper">
+        <span class="signup-notice">Haven't joined us yet?</span>
+        <a class="signup-link" routerLink="/sign-up">Sign up</a>
+      </div>
+      <ng-container *ngIf="errMsg$ | async"></ng-container>
+
+    </main>
+
+    <!-- linking to signup -->
+    <aside class="login-aside">
+      <div class="login-aside-overlay"></div>
+      <h1 class="login-welcome-text">Welcome Back!</h1>
+      <hr class="login-aside-hr">
+    </aside>
+  </div>
+</div>

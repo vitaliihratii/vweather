@@ -1,0 +1,42 @@
+:host {
+  outline: none;
+}
+
+.add__card {
+  align-items: center;
+  background-color: #ffffff;
+  border-radius: 1.75rem;
+  box-shadow: 0 0 2rem rgba(0, 0, 255, 0.1);
+  box-sizing: border-box;
+  color: #443282;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  outline: none;
+  padding: 2rem;
+  height: 30rem;
+  width: 19rem;
+}
+
+.card__title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  letter-spacing: 0.1rem;
+  text-transform: uppercase;
+}
+
+.city__illustration {
+  width: 20rem;
+}
+
+.body__container {
+  align-items: center;
+  display: flex;
+  flex-flow: column;
+  justify-content: space-between;
+  margin: auto;
+}
+
+.add__icon {
+  width: 13rem;
+}

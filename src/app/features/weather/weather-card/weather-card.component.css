@@ -1,0 +1,96 @@
+:host {
+  outline: none;
+}
+
+.weather__card {
+  align-items: center;
+  background-color: white;
+  border-radius: 1.75rem;
+  box-shadow: 0 0 2rem rgba(0, 0, 255, 0.1);
+  box-sizing: border-box;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-items: center;
+  padding: 2rem;
+  height: 30rem;
+  width: 19rem;
+}
+
+.weather__card-section {
+  flex: 1 1;
+}
+
+.city-name__text {
+  text-transform: uppercase;
+  font-size: 1.4rem;
+  letter-spacing: 0.1rem;
+  margin-bottom: 1rem;
+}
+
+.temperature-text__container {
+  text-align: center;
+}
+
+.temperature__text {
+  align-self: end;
+  width: 100%;
+  font-size: 4rem;
+  font-weight: 100;
+  letter-spacing: 0.1rem;
+}
+
+.temperature-metric__text {
+  text-align: start;
+  font-size: 3rem;
+}
+
+.min-max__container {
+  align-items: center;
+  display: flex;
+}
+
+.min__container, .max__container {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  margin: 1rem 3rem;
+}
+
+.weather-condition__text {
+  display: block;
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1rem;
+  text-align: center;
+}
+
+.max__text {
+  color: #ff932f;
+}
+
+.min__text {
+  color: #1142c1;
+}
+
+.max__text, .min__text {
+  font-size: 1rem;
+  text-align: center;
+}
+
+.max-temperature__text, .min-temperature__text {
+  text-align: center;
+  font-size: 2rem;
+}
+
+.weather-icon__container {
+  align-items: center;
+  width: 10rem;
+  margin-bottom: 2rem;
+  display: flex;
+  justify-content: center;
+}
+
+.weather-icon__container>svg {
+  width: 10rem;
+}

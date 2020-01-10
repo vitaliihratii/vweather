@@ -1,0 +1,59 @@
+<div class="add-wrapper">
+
+  <ng-container *ngIf="addCity$ | async"></ng-container>
+  <section class="main-card">
+
+    <div class="city-search-wrapper">
+
+      <div class="city-search-header">
+        <h3 class="city-search-title">SEARCH CITIES</h3>
+        <div class="search-city-input-wrapper">
+          <input class="search-city-input" placeholder="Enter city name" [formControl]="citySearchCtrl">
+        </div>
+      </div>
+
+      <div class="city-search-body">
+        <ul class="city-search__list">
+          <li 
+            class="city-search__list-item" 
+            (mouseenter)="cityItem.hover = true" 
+            (mouseleave)="cityItem.hover = false" 
+            *ngFor="let city of capitals$ | async" 
+            #cityItem>
+            <span>{{city.capital}}</span>
+            <button type="button" class="city-search__add-btn" (click)="addCitySubj.next(city.capital)" *ngIf="cityItem.hover">Add</button>
+          </li>
+        </ul>
+        <span class="error-msg" *ngIf="errMsgSubj | async as error">{{error}}</span>
+      </div>
+
+    </div>
+
+    <div class="fav-city-wrapper">
+
+      <img class="fav-city-image" src="/assets/images/kiev.jpg">
+      <div class="fav-city-image-overlay"></div>
+
+      <div class="fav-city-body">
+        <div class="fav-city-body-subwrapper">
+
+          <div class="fav-weather-icon">
+            
+          </div>
+
+          <div class="fav-city-info" *ngIf="topCityWeather$ | async as weather">
+            <span class="fav-city-temp">{{weather.main.temp | round}}°</span>
+            <div class="fav-city-name-wrapper">
+              <span class="fav-city-name">KIEV</span>
+              <span class="fav-city-country">UK</span>
+            </div>
+            <span class="fav-city-state">{{weather.weather[0].main}}</span>
+          </div>
+          <button class="fav-city-add-btn" (click)="addCitySubj.next(topCity)" *ngIf="!(topCityAdded$ | async)">{{followedCM ? "FOLLOWED" : "Add"}}</button>
+        </div>
+      </div>
+
+    </div>
+
+  </section>
+</div>

@@ -1,0 +1,4 @@
+{
+  "editor.suggest.filterGraceful": false,
+  "typescript.format.insertSpaceBeforeFunctionParenthesis": true
+}

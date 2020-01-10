@@ -1,0 +1,23 @@
+.main__container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  margin: 0 auto;
+  max-width: 1440px;
+  min-height: 90vh;
+  position: relative;
+}
+
+vwe-weather-card, vwe-add-city-card {
+  margin: 2rem;
+}
+
+@media screen and (min-width: 1024px) {
+  .main__container {
+    padding-top: 1em;
+  }
+  vwe-weather-card, vwe-add-city-card {
+    margin: 1rem;
+  }
+}

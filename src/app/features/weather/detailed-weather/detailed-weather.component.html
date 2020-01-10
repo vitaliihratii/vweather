@@ -1,0 +1,75 @@
+<div class="details-page__wrapper">
+  <!-- <svg class="back__button" routerLink="" viewBox="4085 152 98.5 126" tabindex="0">
+    <defs>
+      <style>
+        .a {
+          fill: #2b244d;
+        }
+
+        .b {
+          fill: rgba(0, 0, 0, 0);
+        }
+
+        .b,
+        .c {
+          stroke: #fff;
+          stroke-width: 2px;
+        }
+
+        .c {
+          fill: none;
+        }
+
+        .d {
+          fill: #fff;
+          font-size: 15px;
+          font-family: SegoeUI, Segoe UI, sans-serif;
+          letter-spacing: 0.4em;
+        }
+      </style>
+    </defs>
+    <g transform="translate(3980)">
+      <circle class="a" cx="39" cy="39" r="39" transform="translate(105 152)"></circle>
+      <line class="b" transform="translate(123.5 190.5)" x1="80"></line>
+      <line class="b" transform="translate(123.5 164.5)" x2="26" y1="26"></line>
+      <line class="c" transform="translate(123.5 190.5)" x1="26" y1="27"></line>
+      <text class="d" transform="translate(117 274)">
+        <tspan x="0" y="0">BACK</tspan>
+      </text>
+    </g>
+  </svg> -->
+  <section class="forecast__container">
+    <div class="forecast__day" *ngFor="let day of daysForecastArr; index as i">
+      <h2 class="forecast__day-header">{{day.name}}</h2>
+      <ul class="forecast__day-list" [ngClass]="{'forecast__day-list--end': i === 0 && !isFirstDayFull}">
+        <li class="forecast__day-range-item day-range" *ngFor="let dayWeather of day.forecast | async">
+          <div>{{getHours(dayWeather.dt_txt)}}:00</div>
+          <figure class="day-range__weather-type">
+            <img [src]="'http://openweathermap.org/img/wn/' + dayWeather.weather[0].icon + '@2x.png'"
+              [alt]="dayWeather.weather[0].main">
+            <figcaption><b>{{dayWeather.weather[0].main}}</b></figcaption>
+          </figure>
+          <div class="day-range__main-params">
+            <figure class="day-range__param">
+              <img src="/assets/images/temp.png" class="day-range__param-icon" alt="Temperature">
+              <figcaption>{{dayWeather.main.temp | round}}°</figcaption>
+            </figure>
+            <figure class="day-range__param">
+              <img src="/assets/images/humidity.png" class="day-range__param-icon" alt="humidity">
+              <figcaption>{{dayWeather.main.humidity}}%</figcaption>
+            </figure>
+            <figure class="day-range__param">
+              <img src="/assets/images/pressure.png" class="day-range__param-icon" alt="pressure">
+              <figcaption>{{dayWeather.main.pressure}} hPa</figcaption>
+            </figure>
+            <figure class="day-range__param">
+              <img src="/assets/images/air.png" class="day-range__param-icon" alt="air">
+              <figcaption>{{dayWeather.wind.speed}} m/s</figcaption>
+            </figure>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+  </section>
+</div>

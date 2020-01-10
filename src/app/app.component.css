@@ -1,0 +1,46 @@
+.loader-overlay {
+  background-color: rgba(255, 255, 255, 0.97);
+  bottom: 0;
+  left: 0;
+  position: fixed;
+  right: 0;
+  top: 0;
+  z-index: 10;
+}
+
+.loader {
+  animation: load-circle 1s infinite linear;
+  border-top: 0.75rem solid transparent;
+  border-right: 0.75rem solid transparent;
+  border-bottom: 0.75rem solid transparent;
+  border-left: 0.75rem solid #ff932f;
+  font-size: 1rem;
+  left: calc(50% - 3.5rem);
+  text-indent: -9999em;
+  position: fixed;
+  top: calc(50% - 3.5rem);
+  z-index: 20;
+}
+
+.loader, .loader:after {
+  border-radius: 50%;
+  width: 7rem;
+  height: 7rem;
+}
+
+/*
+==================================
+          animation
+==================================
+*/
+
+@keyframes load-circle {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
