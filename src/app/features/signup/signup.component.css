@@ -95,10 +95,12 @@
 }
 
 .signup-input {
+  -webkit-appearance: none;
   border: none;
   border-radius: 2rem;
   box-shadow: 0 0 2rem 0 rgba(0, 0, 0, 0.25);
   box-sizing: border-box;
+  font-size: 1rem;
   padding: 1.5rem;
   outline: none;
   transition: box-shadow 0.2s;
@@ -115,6 +117,7 @@
 }
 
 .signup-btn {
+  -webkit-appearance: none;
   background-color: #ff932f;
   padding: 1rem;
   border-radius: 2rem;
@@ -126,10 +129,6 @@
   margin-top: 1.5rem;
   width: 50%;
   box-shadow: 0 0 2rem rgba(0, 0, 0, 0.1);
-}
-
-.signup-btn:hover {
-  background: linear-gradient(to right, #03a9f4, #ff932f);
 }
 
 .signup-input::placeholder {
@@ -187,6 +186,12 @@
   }
 }
 
+@media screen and (min-width: 1024px) {
+  .signup-btn:hover {
+    background: linear-gradient(to right, #03a9f4, #ff932f);
+  }
+}
+
 @media screen and (max-width: 1024px) {
   .signup-aside {
     flex: 2 2;
@@ -198,6 +203,7 @@
     margin: 1rem 0;
   }
   .signup-btn {
+    background-color: #ff932f;
     font-size: 0.75rem;
     margin-top: 1.25rem;
   }

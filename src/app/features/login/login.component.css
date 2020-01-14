@@ -96,10 +96,13 @@
 }
 
 .login-input {
+  -webkit-appearance: none;
   border: none;
   border-radius: 2rem;
+  -webkit-box-shadow: 0 0 2rem 0 rgba(0, 0, 0, 0.25);
   box-shadow: 0 0 2rem 0 rgba(0, 0, 0, 0.25);
   box-sizing: border-box;
+  font-size: 1rem;
   padding: 1.5rem;
   outline: none;
   transition: box-shadow 0.2s;
@@ -110,12 +113,18 @@
   box-shadow: 0 0 2.75rem 0 rgba(0, 0, 0, 0.35);
 }
 
+.login-input::placeholder {
+  color: #39437a;
+  font-size: 0.9rem;
+}
+
 .login-input.ng-touched.ng-invalid {
   box-shadow: 0 0 1rem 0 rgba(170, 23, 23, 0.514);
   color: rgb(170, 23, 23);
 }
 
 .login-btn {
+  -webkit-appearance: none;
   background-color: #ff932f;
   border: none;
   border-radius: 2rem;
@@ -127,23 +136,6 @@
   outline: none;
   padding: 0.75rem;
   width: 50%;
-}
-
-.login-btn:hover {
-  background-image: linear-gradient(to right, #03a9f4, #ff932f);
-}
-
-.login-input::placeholder {
-  color: #39437a;
-  font-size: 0.9rem;
-}
-
-.btn-disabled {
-  background-color: lightgray;
-}
-
-.btn-disabled:hover {
-  background: lightgray;
 }
 
 .signup-link-wrapper {
@@ -188,6 +180,12 @@
   }
 }
 
+@media screen and (min-width: 1024px) {
+  .login-btn:hover {
+    background-image: linear-gradient(to right, #03a9f4, #ff932f);
+  }
+}
+
 @media screen and (max-width: 1024px) {
   .login-aside {
     flex: 2 2;
@@ -199,6 +197,7 @@
     margin: 1rem 0;
   }
   .login-btn {
+    background-color: #ff932f;
     font-size: 0.75rem;
     margin-top: 1.25rem;
   }

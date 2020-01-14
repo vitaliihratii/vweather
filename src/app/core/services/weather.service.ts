@@ -52,7 +52,7 @@ export class WeatherService {
     switch (range) {
       case DATE_RANGES.TODAY:
       case DATE_RANGES.FIVE_DAYS:
-        return new Date(item.dt_txt) < this.getToDate(range) && new Date(item.dt_txt) >= apiBalancedDate;
+        return new Date(item.dt * 1000) < this.getToDate(range) && new Date(item.dt * 1000) >= apiBalancedDate;
       case DATE_RANGES.TOMORROW:
       case DATE_RANGES.THIRD_DAY:
       case DATE_RANGES.FOURTH_DAY:
@@ -63,7 +63,7 @@ export class WeatherService {
         const fromDate = apiBalancedDate.setDate(apiBalancedDate.getDate() + extraDays);
         const exactFromDate = new Date(new Date(fromDate).setHours(0, 0, 0, 0));
 
-        return new Date(item.dt_txt) >= exactFromDate && new Date(item.dt_txt) < this.getToDate(range);
+        return new Date(item.dt * 1000) >= exactFromDate && new Date(item.dt * 1000) < this.getToDate(range);
     }
   }
 

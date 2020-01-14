@@ -16,8 +16,8 @@
         <ul class="city-search__list">
           <li 
             class="city-search__list-item" 
-            (mouseenter)="cityItem.hover = true" 
-            (mouseleave)="cityItem.hover = false" 
+            (click)="cityItem.hover = !cityItem.hover" 
+            
             *ngFor="let city of capitals$ | async" 
             #cityItem>
             <span>{{city.capital}}</span>
