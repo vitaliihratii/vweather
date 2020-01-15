@@ -1,13 +1,13 @@
-import { Component, OnInit } from '@angular/core';
-import { of, Observable } from 'rxjs';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Observable } from 'rxjs';
 import { WeatherEntityService } from '../services/weather-entity.service';
 import { City } from 'src/app/models/city';
-import { first, withLatestFrom, tap, filter, map } from 'rxjs/operators';
 
 @Component({
   selector: 'vwe-home-weather',
   templateUrl: './home-weather.component.html',
-  styleUrls: ['./home-weather.component.css']
+  styleUrls: ['./home-weather.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HomeWeatherComponent implements OnInit {
 

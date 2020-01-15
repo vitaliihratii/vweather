@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
 import { UiService } from 'src/app/core/services/ui.service';
 import { FormControl } from '@angular/forms';
 import { tap, map, filter } from 'rxjs/operators';
@@ -18,7 +18,8 @@ import { SelectItem } from 'src/app/models/select-item';
 @Component({
   selector: 'vwe-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  styleUrls: ['./home.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HomeComponent implements OnInit, OnDestroy {
 

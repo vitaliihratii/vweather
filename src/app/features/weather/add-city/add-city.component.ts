@@ -1,19 +1,15 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { WeatherService } from 'src/app/core/services/weather.service';
 import { CityService } from 'src/app/core/services/city.service';
-import { Observable, of, EMPTY, Subject, throwError, combineLatest } from 'rxjs';
+import { Observable, of, Subject, merge } from 'rxjs';
 import { Capital } from 'src/app/models/capital';
 import { FormControl } from '@angular/forms';
-import { switchMap, catchError, tap, retryWhen, exhaustMap, filter, map, withLatestFrom } from 'rxjs/operators';
+import { switchMap, catchError, tap, exhaustMap, filter, map, withLatestFrom, delay } from 'rxjs/operators';
 import { ERROR_CODES } from 'src/app/enums/error-codes';
 import { CurrentWeather } from 'src/app/models/weather';
-import { WeatherDataService } from '../services/weather-data.service';
 import { WeatherEntityService } from '../services/weather-entity.service';
-import { ForecastEntityService } from '../services/forecast-entity.service';
-import { DataServiceError } from '@ngrx/data';
 import { Store, select } from '@ngrx/store';
 import { AppState } from 'src/app/core/store/state';
-import { User } from 'src/app/models/user';
 import { userSelector } from 'src/app/core/store/selectors/auth.selectors';
 import { GuidService } from 'src/app/core/services/guid.service';
 
@@ -28,6 +24,7 @@ export class AddCityComponent implements OnInit {
   errMsgSubj: Subject<string> = new Subject();
   addCitySubj: Subject<string> = new Subject();
   addCity$: Observable<any> = this.addCitySubj.asObservable();
+  cityAddedSuccess$: Observable<any>;
   citySearchCtrl: FormControl;
   topCityWeather$: Observable<CurrentWeather>;
   topCityAdded$: Observable<boolean>;
@@ -77,6 +74,16 @@ export class AddCityComponent implements OnInit {
       map(entts => !!entts.length)
     );
 
+    const cityAddSuccessSubj = new Subject();
+    const cityAddSuccess$ = cityAddSuccessSubj.pipe(
+      delay(1500),
+      tap(_ => cityAddSuccessSubj.next(''))
+    );
+    this.cityAddedSuccess$ = merge(
+      cityAddSuccessSubj,
+      cityAddSuccess$
+    );
+
     this.addCity$ = checkCity$.pipe(
       withLatestFrom(this.addCitySubj),
       filter(([isAdded, cityName]) => {
@@ -87,6 +94,9 @@ export class AddCityComponent implements OnInit {
       map(([isAdded, cityName]) => cityName),
       exhaustMap(cityName => this.wes.add({ id: this.guidS.newGuid(), name: cityName })),
       tap(_ => this.citySearchCtrl.setValue('')),
+      tap(_ => cityAddSuccessSubj.next('City was added to your list'))
     );
+
   }
+
 }

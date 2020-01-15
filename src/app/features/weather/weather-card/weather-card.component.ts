@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, Input, Output } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input, Output, ChangeDetectionStrategy } from '@angular/core';
 import { first, switchMap, map, tap, filter, exhaustMap } from 'rxjs/operators';
 import { DATE_RANGES } from 'src/app/models/date-ranges';
 import { EventEmitter } from 'events';
@@ -15,16 +15,14 @@ import { ForecastEntityService } from '../services/forecast-entity.service';
 @Component({
   selector: 'vwe-weather-card',
   templateUrl: './weather-card.component.html',
-  styleUrls: ['./weather-card.component.css']
+  styleUrls: ['./weather-card.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class WeatherCardComponent implements OnInit, OnDestroy {
+export class WeatherCardComponent implements OnInit {
 
 
   @Input('city') cityName: string;
 
-  @Input() addMode;
-  @Output() cityStored = new EventEmitter();
-  darkMode: boolean;
   generalWeather$: Observable<GeneralWeatherData>;
 
   constructor(
@@ -62,9 +60,6 @@ export class WeatherCardComponent implements OnInit, OnDestroy {
       }
       )
     );
-  }
-
-  ngOnDestroy() {
   }
 
 }

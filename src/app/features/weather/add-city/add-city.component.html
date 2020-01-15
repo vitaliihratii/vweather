@@ -25,6 +25,7 @@
           </li>
         </ul>
         <span class="error-msg" *ngIf="errMsgSubj | async as error">{{error}}</span>
+        <div *ngIf="cityAddedSuccess$ | async as msg">{{msg}}</div>
       </div>
 
     </div>

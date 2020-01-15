@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { switchMap, share, map, tap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { UiService } from 'src/app/core/services/ui.service';
@@ -12,7 +12,8 @@ import { ForecastEntityService } from '../services/forecast-entity.service';
 @Component({
   selector: 'vwe-detailed-weather',
   templateUrl: './detailed-weather.component.html',
-  styleUrls: ['./detailed-weather.component.css']
+  styleUrls: ['./detailed-weather.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DetailedWeatherComponent implements OnInit {
 
