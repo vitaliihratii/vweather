@@ -17,6 +17,7 @@ import { environment } from 'src/environments/environment';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { ServiceWorkerModule } from '@angular/service-worker';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
     AngularFirestoreModule.enablePersistence(),
     AngularFireAuthModule,
     RouterModule.forRoot(APP_ROUTES),
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
   ],
   exports: [
   ],
