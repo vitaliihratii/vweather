@@ -9,8 +9,8 @@
     "cacheConfig": {
       "strategy": "freshness",
       "timeout": "5s",
-      "maxSize": 5,
-      "maxAge": "15m"
+      "maxSize": 10,
+      "maxAge": "30m"
     }
   }, {
     "name": "api-forecast",
@@ -26,8 +26,8 @@
   }, {
     "name": "api-static-files",
     "urls": [
-      "http://openweathermap.org/img/wn/**",
-      "https://avatars1.githubusercontent.com/u/**"
+      "http://openweathermap.org/img/**/*.png",
+      "https://avatars1.githubusercontent.com/**/*"
     ],
     "cacheConfig": {
       "strategy": "performance",
@@ -56,6 +56,21 @@
         "files": [
           "/assets/**",
           "/*.(eot|svg|cur|jpg|png|webp|gif|otf|ttf|woff|woff2|ani)"
+        ]
+      }
+    },
+    {
+      "name": "weather-icons-assets",
+      "installMode": "lazy",
+      "updateMode": "prefetch",
+      "resources": {
+        "files": [
+          "/*.(eot|svg|cur|jpg|png|webp|gif|otf|ttf|woff|woff2|ani)"
+        ],
+        "urls": [
+          "http://openweathermap.org/img/**",
+          "https://avatars1.githubusercontent.com/**/*",
+          "https://fonts.googleapis.com/*"
         ]
       }
     }
