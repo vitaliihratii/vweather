@@ -1,7 +1,7 @@
 <section class="weather__card" [ngClass]="{'weather__card-dark': darkMode, 'weather__card-add': addMode}" *ngIf="generalWeather$ | async as weather">
   <span class="weather__card-section city-name__text">{{cityName}}</span>
   <div class="weather__card-section weather-icon__container">
-    <img [src]="'http://openweathermap.org/img/wn/' + weather.weather.icon + '@2x.png'" alt="">
+    <img [src]="'https://openweathermap.org/img/wn/' + weather.weather.icon + '@2x.png'" alt="">
   </div>
   <div class="weather__card-section temperature-text__container">
     <!-- <span class="temperature__text">{{ citesWeather }}</span> -->

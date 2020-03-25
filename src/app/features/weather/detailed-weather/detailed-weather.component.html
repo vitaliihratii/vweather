@@ -45,7 +45,7 @@
         <li class="forecast__day-range-item day-range" *ngFor="let dayWeather of day.forecast | async">
           <div>{{getHours(dayWeather.dt)}}:00</div>
           <figure class="day-range__weather-type">
-            <img [src]="'http://openweathermap.org/img/wn/' + dayWeather.weather[0].icon + '@2x.png'"
+            <img [src]="'https://openweathermap.org/img/wn/' + dayWeather.weather[0].icon + '@2x.png'"
               [alt]="dayWeather.weather[0].main">
             <figcaption><b>{{dayWeather.weather[0].main}}</b></figcaption>
           </figure>

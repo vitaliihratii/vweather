@@ -23,17 +23,6 @@
       "maxSize": 20,
       "maxAge": "3h"
     }
-  }, {
-    "name": "api-static-files",
-    "urls": [
-      "http://openweathermap.org/img/**/*.png",
-      "https://avatars1.githubusercontent.com/**/*"
-    ],
-    "cacheConfig": {
-      "strategy": "performance",
-      "maxSize": 100,
-      "maxAge": "30d"
-    }
   }],
   "assetGroups": [
     {
@@ -68,7 +57,7 @@
           "/*.(eot|svg|cur|jpg|png|webp|gif|otf|ttf|woff|woff2|ani)"
         ],
         "urls": [
-          "http://openweathermap.org/img/**",
+          "https://openweathermap.org/img/**",
           "https://avatars1.githubusercontent.com/**/*",
           "https://fonts.googleapis.com/*"
         ]
