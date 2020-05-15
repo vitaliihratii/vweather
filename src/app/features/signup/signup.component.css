@@ -101,7 +101,7 @@
   box-shadow: 0 0 2rem 0 rgba(0, 0, 0, 0.25);
   box-sizing: border-box;
   font-size: 1rem;
-  padding: 1.5rem;
+  padding: 0.75rem;
   outline: none;
   transition: box-shadow 0.2s;
   width: 100%;
@@ -164,6 +164,12 @@
   text-align: center;
 }
 
+@media screen and (min-width: 471px) {
+  .signup-input {
+    font-size: 0.75em;
+  }
+}
+
 @media screen and (max-width: 1200px) {
   .signup-card {
     min-height: 90vh;
@@ -173,7 +179,7 @@
     width: 100%;
   }
   .signup-input {
-    padding: 1rem;
+    padding: 0.5rem;
   }
   .signup-welcome-text {
     margin: 0 0 1rem 2rem;

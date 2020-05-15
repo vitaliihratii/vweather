@@ -44,10 +44,15 @@ export class WeatherService {
     );
   }
 
-
+  /**
+   *
+   * @param item actual weather item which evalutes against date derrived from range
+   * @param range of Daterange type, from which date is derrived  
+   * apiBalancedDate inner const was made in purpose to get date consumable by method depending on actual local user time  
+   * LEAVE here for future purposes
+   */
   filterWeatherForecast(item: WeatherRangeItem, range: string): boolean {
-    const hours = new Date().getHours(),
-          apiBalancedDate = hours >= 21 ? new Date(new Date(new Date().setDate(new Date().getDate() + 1)).setHours(0, 0, 0, 0)) : new Date();
+    const apiBalancedDate = new Date();
 
     switch (range) {
       case DATE_RANGES.TODAY:
@@ -63,17 +68,22 @@ export class WeatherService {
         const fromDate = apiBalancedDate.setDate(apiBalancedDate.getDate() + extraDays);
         const exactFromDate = new Date(new Date(fromDate).setHours(0, 0, 0, 0));
 
-        return new Date(item.dt * 1000) >= exactFromDate && new Date(item.dt * 1000) < this.getToDate(range);
+        return new Date(item.dt * 1000) > exactFromDate && new Date(item.dt * 1000) <= this.getToDate(range);
     }
   }
 
+  /**
+   * @param to of Daterange type, from which date is derrived
+   * apiBalancedDate const was made in purpose to get date consumable by method depending on actual local user time
+   * LEAVE here for future purposes
+   * setHours(24,0,0,0) sets date nest day 00:00:00, bcz API response .dt field for 21:00 evaluates to next day 00:00
+   */
   private getToDate(to: string): Date {
-    const hours = new Date().getHours(),
-      apiBalancedDate = hours >= 21 ? new Date(new Date().setDate(new Date().getDate() + 1)) : new Date();
+    const apiBalancedDate = new Date();
 
     switch (to) {
       case DATE_RANGES.TODAY:
-        return new Date(apiBalancedDate.setHours(23, 59, 59));
+        return new Date(apiBalancedDate.setHours(24, 0, 0));
       case DATE_RANGES.TOMORROW:
       case DATE_RANGES.THIRD_DAY:
       case DATE_RANGES.FOURTH_DAY:
@@ -82,10 +92,10 @@ export class WeatherService {
                           to === DATE_RANGES.THIRD_DAY ? 2 :
                           to === DATE_RANGES.FOURTH_DAY ? 3 : 4;
         const nextDay = new Date().setDate(apiBalancedDate.getDate() + extraDays);
-        return new Date(new Date(nextDay).setHours(23, 59, 59));
+        return new Date(new Date(nextDay).setHours(24, 0, 0, 0));
       case DATE_RANGES.FIVE_DAYS:
         const fiveDays = new Date().setDate(apiBalancedDate.getDate() + 5);
-        return new Date(new Date(fiveDays).setHours(23, 59, 59));
+        return new Date(new Date(fiveDays).setHours(24, 0, 0, 0));
     }
   }
 

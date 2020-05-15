@@ -58,7 +58,7 @@ export class DetailedWeatherComponent implements OnInit {
 
   getDate(extraDays: number) {
     const currHours = new Date().getHours();
-    const dayNum = new Date(new Date().setDate(new Date().getDate() + extraDays)).getDay() + (currHours >= 21 ? 1 : 0);
+    const dayNum = new Date(new Date().setDate(new Date().getDate() + extraDays)).getDay();
 
     return DAYS[dayNum === 7 ? 0 : dayNum];
   }
