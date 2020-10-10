@@ -36,4 +36,11 @@ export class WeatherDataService extends DefaultDataService<City> {
       switchMap(user => this.cityS.addCityUser(user.id, city)),
     );
   }
+
+  delete(cityId: string) {
+    return this.store.pipe(
+      select(userSelector),
+      switchMap(user => this.cityS.deleteCityUser(user.id, cityId))
+    )
+  }
 }

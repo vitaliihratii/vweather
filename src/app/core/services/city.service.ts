@@ -41,9 +41,16 @@ export class CityService {
       .add(city))
       .pipe(
         switchMap(docRef => docRef.get()),
-        map(doc => ({ ...<City>doc.data(), id: doc.id }))
+        map((doc) => ({ ...<City>doc.data(), id: doc.id }))
       );
   }
+
+  
+  deleteCityUser(userId: string, cityId: string): Observable<any> {
+    debugger
+    return from(this.af.doc(`users/${userId}/cities/${cityId}`).delete());
+  }
+
 
   // isCityAdded(userId: string, cityName: string): Observable<boolean> {
   //   return from(this.af.collection(`users/${userId}/cities`, ref => ref.where('name', '==', cityName))
