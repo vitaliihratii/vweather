@@ -160,6 +160,12 @@
   text-align: center;
 }
 
+@media screen and (min-width: 471px) {
+  .login-input {
+    font-size: 0.75em;
+  }
+}
+
 @media screen and (max-width: 1200px) {
   .login-card {
     min-height: 90vh;
