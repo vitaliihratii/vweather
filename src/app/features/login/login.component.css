@@ -103,7 +103,7 @@
   box-shadow: 0 0 2rem 0 rgba(0, 0, 0, 0.25);
   box-sizing: border-box;
   font-size: 1rem;
-  padding: 1.5rem;
+  padding: 0.75rem 1.25rem;
   outline: none;
   transition: box-shadow 0.2s;
   width: 100%;
@@ -133,8 +133,10 @@
   cursor: pointer;
   font-size: 1rem;
   margin-top: 1.5rem;
+  overflow: hidden;
   outline: none;
   padding: 0.75rem;
+  position: relative;
   width: 50%;
 }
 
@@ -166,9 +168,6 @@
   .login-form {
     width: 100%;
   }
-  .login-input {
-    padding: 1rem;
-  }
   .login-welcome-text {
     margin: 0 0 1rem 2rem;
     font-size: 2rem;
@@ -181,8 +180,25 @@
 }
 
 @media screen and (min-width: 1024px) {
-  .login-btn:hover {
+  .login-btn::after {
     background-image: linear-gradient(to right, #03a9f4, #ff932f);
+    bottom: 0;
+    content: "";
+    height: 100%;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    transform: translateX(-100%);
+    transition: transform 0.15s ease-out;
+    width: 100%;
+  }
+  .login-btn:hover::after {
+    transform: translateX(0);
+  }
+  .login-btn > span {
+    position: relative;
+    z-index: 10;
   }
 }
 

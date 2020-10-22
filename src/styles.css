@@ -1,7 +1,7 @@
 @import "~@ng-select/ng-select/themes/default.theme.css";
 html, body {
   font-family: 'Lato', Arial, sans-serif;
-  font-size: 22px;
+  font-size: 20px;
   margin: 0;
   padding: 0;
 }

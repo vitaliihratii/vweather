@@ -16,7 +16,7 @@
           <span class="form__error" *ngIf="showErrors(authForm, 'password', 'required')">Field is required</span>
           <span class="form__error" *ngIf="showErrors(authForm, 'password', 'minlength')">Enter at least 6 symbols</span>
         </label>
-        <input type="submit" name="submit" value="Signup" class="signup-btn">
+        <button type="submit" class="signup-btn"><span>Signup</span></button>
       </form>
       <ng-container *ngIf="errMsg$ | async"></ng-container>
       <div class="error-msg" *ngIf="errMsgSubj | async as err">

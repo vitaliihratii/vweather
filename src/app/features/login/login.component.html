@@ -17,7 +17,7 @@
           <span class="form__error" *ngIf="showErrors(authForm, 'password', 'required')">Field is required</span>
           <span class="form__error" *ngIf="showErrors(authForm, 'password', 'minlength')">Enter at least 6 symbols</span>
         </label>
-        <input type="submit" name="submit" value="Login" class="login-btn">
+        <button type="submit" class="login-btn"><span>Login</span></button>
       </form>
       <div class="error-msg" *ngIf="errMsgSubj | async as err">
         {{err}}
