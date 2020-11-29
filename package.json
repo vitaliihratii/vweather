@@ -30,6 +30,7 @@
     "@ngrx/router-store": "^8.6.0",
     "@ngrx/store": "^8.6.0",
     "@ngrx/store-devtools": "^8.6.0",
+    "@rxweb/types": "^1.0.6",
     "core-js": "^2.6.11",
     "firebase": "^7.5.0",
     "ngrx": "0.0.1-security",

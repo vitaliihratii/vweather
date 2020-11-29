@@ -1,22 +1,23 @@
-import { Component, OnInit } from '@angular/core';
-import { Observable, Subject, NEVER, EMPTY } from 'rxjs';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { Observable, Subject, NEVER, EMPTY, timer } from 'rxjs';
+import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/core/store/state';
 import { withLatestFrom, switchMap, tap, filter, map, catchError, delay } from 'rxjs/operators';
 import { signin } from 'src/app/core/store/actions/auth.actions';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { FormService } from 'src/app/core/services/form.service';
+import { IFormBuilder, IFormGroup } from '@rxweb/types';
 
 @Component({
   selector: 'vwe-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit {
 
   signIn$: Observable<any>;
-  authForm: FormGroup;
+  authForm: FormGroupTyped<{email: string, password: string, rememberUser: boolean}>;
   submitSignIn = new Subject();
   errMsgSubj: Subject<string> = new Subject();
   errMsg$: Observable<string>;
@@ -25,7 +26,8 @@ export class LoginComponent implements OnInit {
   constructor(
     private store: Store<AppState>,
     private formS: FormService,
-    private authS: AuthService
+    private authS: AuthService,
+    private fb: FormBuilder,
   ) {
     this.showErrors = this.formS.showValidationErrors;
   }
@@ -33,8 +35,8 @@ export class LoginComponent implements OnInit {
   ngOnInit () {
     this.authForm = new FormGroup({
       email: new FormControl('', [Validators.required, Validators.pattern(/.{2,}@.{1,}\..{2,}/)]),
-      password: new FormControl('', [Validators.required, Validators.minLength(6)])
-    });
+      password: new FormControl('', [Validators.required, Validators.minLength(6)]),
+    }) as FormGroupTyped<{email: string, password: string, rememberUser: boolean}>;
 
     this.signIn$ = this.submitSignIn.pipe(
       withLatestFrom(this.authForm.valueChanges),
@@ -55,5 +57,4 @@ export class LoginComponent implements OnInit {
       tap(_ => this.errMsgSubj.next(''))
     );
   }
-
 }
