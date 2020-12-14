@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { catchError, map, first, switchMap, filter } from 'rxjs/operators';
+import { catchError, map, first, switchMap, filter, withLatestFrom, tap } from 'rxjs/operators';
 import { throwError, Observable, from } from 'rxjs';
 import { Capital } from 'src/app/models/capital';
 import { ERROR_CODES } from 'src/app/enums/error-codes';
@@ -8,6 +8,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { City } from 'src/app/models/city';
 import { FirestoreService } from './firestore.service';
 import { DataServiceError, EntityDispatcherDefaultOptions } from '@ngrx/data';
+import { User } from 'src/app/models/user';
 
 @Injectable({
   providedIn: 'root'
@@ -35,30 +36,25 @@ export class CityService {
       );
   }
 
-  addCityUser(userId: string, city: City): Observable<City> {
-    return from(this.af.doc(`users/${userId}`)
-      .collection('cities')
-      .add(city))
-      .pipe(
-        switchMap(docRef => docRef.get()),
-        map((doc) => ({ ...<City>doc.data(), id: doc.id }))
-      );
+  addUserCities(userId: string, cities: City[]): Observable<void> {
+    const batch = this.af.firestore.batch();
+    const userCities = this.af.doc(`users/${userId}`).collection('cities');
+    const userCitiesRef = userCities.doc<City>('random').ref;
+    
+    cities.forEach((city, i) => batch.set(userCities.doc<City>(`${city.id}`).ref, city));
+
+    return from(batch.commit())
   }
 
   
   deleteCityUser(userId: string, cityId: string): Observable<any> {
-    debugger
     return from(this.af.doc(`users/${userId}/cities/${cityId}`).delete());
   }
 
-
-  // isCityAdded(userId: string, cityName: string): Observable<boolean> {
-  //   return from(this.af.collection(`users/${userId}/cities`, ref => ref.where('name', '==', cityName))
-  //     .snapshotChanges()
-  //     .pipe(
-  //       first(),
-  //       map(snaps => !!snaps.length)
-  //     )
-  //   );
-  // }
+  generateEntity(name: string): City {
+    return {
+      id: this.af.createId(),
+      name
+    }
+  }
 }

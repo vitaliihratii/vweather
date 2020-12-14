@@ -9,13 +9,15 @@ import { AddCityComponent } from './add-city/add-city.component';
 import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 
-import { EntityDefinitionService, EntityDataService, EntityMetadataMap } from '@ngrx/data';
+import { EntityDefinitionService, EntityDataService, EntityMetadataMap, EntityCacheDataService } from '@ngrx/data';
 import { WeatherDataService } from './services/weather-data.service';
 import { ForecastDataService } from './services/forecast-data.service';
 import { WeatherEntityService } from './services/weather-entity.service';
 import { ForecastEntityService } from './services/forecast-entity.service';
 import { DetailedWeatherResolver } from './services/detailed-weather.resolver';
 import { ForecastItem } from 'src/app/models/forecast';
+import { SharedModule } from 'src/app/shared/shared.module';
+import { CityCacheDataService } from './services/city-cache-data.service';
 
 const entityMetaData: EntityMetadataMap = {
   City: {
@@ -36,6 +38,7 @@ const entityMetaData: EntityMetadataMap = {
     CommonModule,
     ReactiveFormsModule,
     CoreModule,
+    SharedModule,
     RouterModule
   ],
   providers: [
@@ -43,7 +46,8 @@ const entityMetaData: EntityMetadataMap = {
     ForecastEntityService,
     WeatherDataService,
     ForecastDataService,
-    DetailedWeatherResolver
+    DetailedWeatherResolver,
+    { provide: EntityCacheDataService, useClass: CityCacheDataService }
   ]
 })
 export class WeatherModule {

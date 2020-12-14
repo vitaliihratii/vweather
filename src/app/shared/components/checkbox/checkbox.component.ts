@@ -19,6 +19,7 @@ export class CheckboxComponent extends BaseFormControlComponent<boolean> {
 
   @Input() labelPosition: 'left' | 'right' = 'right';
   @Output() change: EventEmitter<boolean> = new EventEmitter();
+  @Output() toggle: EventEmitter<void> = new EventEmitter();
 
   constructor(
     public cd: ChangeDetectorRef
@@ -26,8 +27,9 @@ export class CheckboxComponent extends BaseFormControlComponent<boolean> {
     super();
    }
 
-  toggle() {
+  toggleCheckbox() {
     this.writeValue(!this.value);
+    this.toggle.emit();
   }
 
   registerOnChange(fn: (val: boolean) => void) {

@@ -35,9 +35,8 @@
 
 .city-search-header {
   width: 100%;
-  min-height: 22%;
   display: flex;
-  flex: 1 1;
+  flex: 1 1 22%;
   justify-content: space-between;
   align-items: center;
   flex-flow: column;
@@ -46,10 +45,9 @@
 .city-search-body {
   align-items: center;
   display: flex;
-  flex: 2 1;
+  flex: 2 1 78%;
   flex-direction: column;
-  margin: 2rem 0;
-  min-height: 60%;
+  margin: 1rem 0;
   overflow-y: auto;
   width: 100%;
 }
@@ -93,7 +91,6 @@
 }
 
 .city-search__list {
-  margin-bottom: 2rem;
   width: 75%;
 }
 
@@ -113,11 +110,19 @@
   color: #ff932f;
   font-size: 0.75rem;
   font-weight: 600;
+  margin: 1rem auto;
   padding: 0.5rem 1rem;
   transition: box-shadow 0.15s;
+  width: 6rem;
 }
 
-.city-search__add-btn:hover {
+.city-search__add-btn:disabled {
+  border-color: #9e9e9e;
+  cursor: default;
+  opacity: 0.25;
+}
+
+.city-search__add-btn:not(:disabled):hover {
   box-shadow: 0 0 0.5rem 0.125rem #718ad083;
 }
 
@@ -195,7 +200,7 @@
 
 .city-search-title {
   color: #000000;
-  margin: 3rem 0 2rem 0;
+  margin: 2rem 0 1rem 0;
 }
 
 .fav-city-date {

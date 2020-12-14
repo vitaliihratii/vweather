@@ -16,17 +16,18 @@
         <ul class="city-search__list">
           <li 
             class="city-search__list-item" 
-            (click)="cityItem.hover = !cityItem.hover" 
             
             *ngFor="let city of capitals$ | async" 
             #cityItem>
-            <span>{{city.capital}}</span>
-            <button type="button" class="city-search__add-btn" (click)="addCitySubj.next(city.capital)" *ngIf="cityItem.hover">Add</button>
+            <vwe-checkbox [disabled]="city.disabled" (toggle)="toggleChosenCity(city.capital)">
+              <span>{{city.capital}}</span>
+            </vwe-checkbox>
           </li>
         </ul>
         <span class="error-msg" *ngIf="errMsgSubj | async as error">{{error}}</span>
         <div *ngIf="cityAddedSuccess$ | async as msg">{{msg}}</div>
       </div>
+      <button type="button" class="city-search__add-btn" (click)="addCitySubj.next()" [disabled]="!isAnyCitySelected">Add</button>
 
     </div>
 

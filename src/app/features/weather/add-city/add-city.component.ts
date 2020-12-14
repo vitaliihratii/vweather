@@ -12,6 +12,8 @@ import { Store, select } from '@ngrx/store';
 import { AppState } from 'src/app/core/store/state';
 import { userSelector } from 'src/app/core/store/selectors/auth.selectors';
 import { GuidService } from 'src/app/core/services/guid.service';
+import { City } from 'src/app/models/city';
+import { ChangeSet, ChangeSetItem, changeSetItemFactory, ChangeSetOperation, EntityCacheDispatcher } from '@ngrx/data';
 
 @Component({
   selector: 'vwe-add-city',
@@ -23,12 +25,13 @@ export class AddCityComponent implements OnInit {
   capitals$: Observable<Capital[]>;
   errMsgSubj: Subject<string> = new Subject();
   addCitySubj: Subject<string> = new Subject();
-  addCity$: Observable<any> = this.addCitySubj.asObservable();
+  addCity$: Observable<ChangeSet<City>>;
   cityAddedSuccess$: Observable<any>;
   citySearchCtrl: FormControl;
   topCityWeather$: Observable<CurrentWeather>;
   topCityAdded$: Observable<boolean>;
   private user$: Observable<string>;
+  private chosenCities: Set<string> = new Set();
   readonly topCity = 'Kiev';
 
 
@@ -37,13 +40,13 @@ export class AddCityComponent implements OnInit {
     private guidS: GuidService,
     private weatherS: WeatherService,
     private wes: WeatherEntityService,
-    private store: Store<AppState>
+    private cacheEntityDispatcher: EntityCacheDispatcher,
+    private store: Store<AppState>,
   ) {
   }
 
   ngOnInit () {
     this.citySearchCtrl = new FormControl('');
-
     this.user$ = this.store.pipe(
       select(userSelector),
       map(user => user.id)
@@ -51,27 +54,12 @@ export class AddCityComponent implements OnInit {
 
     this.capitals$ = this.citySearchCtrl.valueChanges.pipe(
       tap(_ => this.errMsgSubj.next('')),
-      switchMap(val => {
-        return this.cityS.getCountriesCapitals(val).pipe(
-          catchError((err, source) => {
-            if (err === ERROR_CODES.CITY_NOTFOUND && val) {
-              this.errMsgSubj.next(err);
-            }
-            return of([]);
-          }),
-        );
-      })
+      switchMap(val => this.getCities(val))
     );
 
     this.topCityWeather$ = this.weatherS.getWeather(this.topCity);
     this.topCityAdded$ = this.wes.entities$.pipe(
       map(entts => entts.find(entt => entt.name === this.topCity) ? true : false)
-    );
-
-    const checkCity$ = this.addCitySubj.pipe(
-      withLatestFrom(this.wes.entities$),
-      map(([cityName, entts]) => entts.filter(entt => entt.name === cityName)),
-      map(entts => !!entts.length)
     );
 
     const cityAddSuccessSubj = new Subject();
@@ -84,19 +72,52 @@ export class AddCityComponent implements OnInit {
       cityAddSuccess$
     );
 
-    this.addCity$ = checkCity$.pipe(
-      withLatestFrom(this.addCitySubj),
-      filter(([isAdded, cityName]) => {
-        if (isAdded) this.errMsgSubj.next(ERROR_CODES.CITY_ALREADY_ADDED);
-
-        return !isAdded;
-      }),
-      map(([isAdded, cityName]) => cityName),
-      exhaustMap(cityName => this.wes.add({ id: this.guidS.newGuid(), name: cityName })),
+    this.addCity$ = this.addCitySubj.pipe(
+      filter(() => Boolean(this.chosenCities.size)),
+      switchMap(() => this.cacheEntityDispatcher.saveEntities(this.citiesChangeSet, '')),
+      tap(_ => this.chosenCities.clear()),
       tap(_ => this.citySearchCtrl.setValue('')),
-      tap(_ => cityAddSuccessSubj.next('City was added to your list'))
+      tap(_ => cityAddSuccessSubj.next('Selected cities was added to your list'))
     );
 
   }
 
+  getCities(query: string): Observable<Capital[]> {
+    return this.cityS.getCountriesCapitals(query).pipe(
+      withLatestFrom(this.wes.entities$),
+      map(([capitals, entts]) => {
+        capitals.forEach((capital: Capital) => capital.disabled = !!entts.find(city => city.name === capital.capital))
+        return capitals;
+      }),
+      catchError((err, source) => {
+        if (err === ERROR_CODES.CITY_NOTFOUND && query) {
+          this.errMsgSubj.next(err);
+        }
+        return of([]);
+      }),
+    );
+  }
+
+  toggleChosenCity (city: string) {
+    if (this.chosenCities.has(city)) {
+      this.chosenCities.delete(city);
+    } else {
+      this.chosenCities.add(city);
+    }
+  }
+
+  get isAnyCitySelected (): boolean {
+    return !!this.chosenCities.size;
+  }
+
+  get citiesChangeSet(): ChangeSet<City> {
+    const changes: ChangeSetItem[] = [{
+      op: ChangeSetOperation.Add,
+      entityName: 'City',
+      entities: [...this.chosenCities].map(city => this.cityS.generateEntity(city))
+    }];
+    return {
+      changes
+    } 
+  }
 }

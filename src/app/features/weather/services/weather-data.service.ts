@@ -30,10 +30,10 @@ export class WeatherDataService extends DefaultDataService<City> {
     );
   }
 
-  add(city: City) {
+  addMany(cities: City[]) {
     return this.store.pipe(
       select(userSelector),
-      switchMap(user => this.cityS.addCityUser(user.id, city)),
+      switchMap(user => this.cityS.addUserCities(user.id, cities)),
     );
   }
 

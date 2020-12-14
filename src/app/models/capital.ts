@@ -17,4 +17,5 @@ export interface Capital {
   borders: string[];
   nativeName: string;
   numericCode: number;
+  disabled?: boolean;
 }
