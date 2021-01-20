@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, forwardRef, Input, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, forwardRef, Input } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 export abstract class BaseFormControlComponent<T> implements ControlValueAccessor {
@@ -6,9 +6,6 @@ export abstract class BaseFormControlComponent<T> implements ControlValueAccesso
   @Input() disabled: boolean;
 
   private _value: T;
-
-  protected constructor(
-  ) { }
 
   public writeValue(val: T) {
     this._value = val;
