@@ -1,6 +1,7 @@
-import { ChangeDetectorRef, Component, forwardRef, Input, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, forwardRef, Input, OnInit, Directive } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
+@Directive()
 export abstract class BaseFormControlComponent<T> implements ControlValueAccessor {
 
   @Input() disabled: boolean;
