@@ -13,6 +13,7 @@ import { GeneralWeatherData } from 'src/app/models/weather';
 import { ForecastEntityService } from '../services/forecast-entity.service';
 import { WeatherEntityService } from '../services/weather-entity.service';
 import { ERROR_CODES } from 'src/app/enums/error-codes';
+import { AutoUnsubscribeComponent } from 'src/app/shared/components/auto-unsubscribe/auto-unsubscribe.component';
 
 @Component({
   selector: 'vwe-weather-card',
@@ -20,7 +21,7 @@ import { ERROR_CODES } from 'src/app/enums/error-codes';
   styleUrls: ['./weather-card.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class WeatherCardComponent implements OnInit {
+export class WeatherCardComponent extends AutoUnsubscribeComponent implements OnInit {
 
 
   @Input('city') cityName: string;
@@ -35,6 +36,7 @@ export class WeatherCardComponent implements OnInit {
     private fes: ForecastEntityService,
     private wes: WeatherEntityService
     ) {
+    super();
   }
 
   ngOnInit() {
@@ -67,6 +69,7 @@ export class WeatherCardComponent implements OnInit {
     );
 
     this.deleteCity$.pipe(
+      this.isAlive(),
       withLatestFrom(this.wes.entities$),
       map(([empty, entts]) => {
         const cityEntt = entts.find(entt => entt.name === this.cityName);
