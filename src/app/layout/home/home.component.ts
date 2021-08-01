@@ -14,6 +14,7 @@ import { signout } from 'src/app/core/store/actions/auth.actions';
 import { User } from 'src/app/models/user';
 import { userSelector } from 'src/app/core/store/selectors/auth.selectors';
 import { SelectItem } from 'src/app/models/select-item';
+import { ThemeService } from 'src/app/core/services/theme.service';
 
 @Component({
   selector: 'vwe-home',
@@ -33,6 +34,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   showGlobalRangSelect$: Observable<boolean>;
   user$: Observable<User>;
   logout$: Observable<any>;
+  toggleTheme: () => void;
 
   readonly dateRangeOptions: SelectItem[] = this.currHours < 21 ? [
     { value: DATE_RANGES.CURRENT, label: 'Current' },
@@ -45,8 +47,11 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   constructor(
     private store: Store<AppState>,
-    private authS: AuthService
-  ) { }
+    private authS: AuthService,
+    private themeS: ThemeService
+  ) {
+    this.toggleTheme = themeS.toggleTheme.bind(themeS);
+   }
 
   ngOnInit () {
     this.weatherRangeCtrl = new FormControl(this.dateRangeOptions[0]);

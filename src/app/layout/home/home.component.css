@@ -218,6 +218,14 @@
   z-index: 40;
 }
 
+:host-context(.light-theme) .main__header {
+  background-color: var(--background-color);
+}
+
+:host-context(.dark-theme) .main__header {
+  background-color: var(--background-color);
+}
+
 .main__header-logo-wrapper {
   margin-right: auto;
 }
