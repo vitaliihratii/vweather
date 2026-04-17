@@ -31,7 +31,7 @@
     "@ngrx/store": "^8.6.0",
     "@ngrx/store-devtools": "^8.6.0",
     "core-js": "^2.6.11",
-    "firebase": "^7.5.0",
+    "firebase": "^12.12.0",
     "ngrx": "0.0.1-security",
     "rxjs": "^6.5.5",
     "tslib": "^1.14.1",
